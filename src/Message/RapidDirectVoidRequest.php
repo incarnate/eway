@@ -2,8 +2,10 @@
 /**
  * eWAY Rapid Void Request
  */
- 
+
 namespace Omnipay\Eway\Message;
+
+use Omnipay\Common\Http\ResponseParser;
 
 class RapidDirectVoidRequest extends AbstractRequest
 {
@@ -13,7 +15,7 @@ class RapidDirectVoidRequest extends AbstractRequest
 
         $data = array();
         $data['TransactionId'] = $this->getTransactionReference();
-        
+
         return $data;
     }
 
@@ -27,11 +29,18 @@ class RapidDirectVoidRequest extends AbstractRequest
         // This request uses the REST endpoint and requires the JSON content type header
         $httpResponse = $this->httpClient->post(
             $this->getEndpoint(),
-            array('content-type' => 'application/json'),
-            json_encode($data)
-        )
-        ->setAuth($this->getApiKey(), $this->getPassword())
-        ->send();
-        return $this->response = new RapidResponse($this, $httpResponse->json());
+            [
+                'auth' => [
+                    $this->getApiKey(),
+                    $this->getPassword()
+                ],
+                'headers' => [
+                    'content-type' => 'application/json'
+                ],
+                'body' => json_encode($data)
+            ]
+        );
+
+        return $this->response = new RapidResponse($this, ResponseParser::json($httpResponse));
     }
 }

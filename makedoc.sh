@@ -6,7 +6,7 @@
 # (c) Del 2015 http://www.babel.com.au/
 #
 
-APPNAME='Omnipay eWay Gateway Module'
+APPNAME='Omnipay eWAY Gateway Module'
 CMDFILE=apigen.cmd.$$
 DESTDIR=./documents
 

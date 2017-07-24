@@ -5,6 +5,8 @@
 
 namespace Omnipay\Eway\Message;
 
+use Omnipay\Common\Http\ResponseParser;
+
 /**
  * eWAY Rapid Shared Page Purchase Request
  *
@@ -49,11 +51,18 @@ class RapidSharedPurchaseRequest extends AbstractRequest
 
     public function sendData($data)
     {
-        $httpResponse = $this->httpClient->post($this->getEndpoint(), null, json_encode($data))
-            ->setAuth($this->getApiKey(), $this->getPassword())
-            ->send();
+        $httpResponse = $this->httpClient->post(
+            $this->getEndpoint(),
+            [
+                'auth' => [
+                    $this->getApiKey(),
+                    $this->getPassword()
+                ],
+                'body' => json_encode($data),
+            ]
+        );
 
-        return $this->response = new RapidSharedResponse($this, $httpResponse->json());
+        return $this->response = new RapidSharedResponse($this, ResponseParser::json($httpResponse));
     }
 
     protected function getEndpoint()

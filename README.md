@@ -7,10 +7,10 @@
 [![Total Downloads](https://poser.pugx.org/omnipay/eway/d/total.png)](https://packagist.org/packages/omnipay/eway)
 
 [Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
-processing library for PHP 5.3+. This package implements eWAY support for Omnipay.
+processing library for PHP 5.6+. This package implements eWAY support for Omnipay.
 
-[eWay](https://eway.io/about-eway) was launched in Australia in 1998 and now operates payment gateways
-in 8 countries.
+[eWAY](https://www.eway.com.au/about-eway) was launched in Australia in 1998 and now operates payment gateways
+in 5 countries.
 
 ## Installation
 
@@ -20,7 +20,7 @@ to your `composer.json` file:
 ```json
 {
     "require": {
-        "omnipay/eway": "~2.0"
+        "omnipay/eway": "~3.0"
     }
 }
 ```

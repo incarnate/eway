@@ -3,6 +3,7 @@
 namespace Omnipay\Eway\Message;
 
 use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\Common\Http\ResponseParser;
 
 /**
  * eWAY Direct Abstract Request
@@ -12,9 +13,9 @@ abstract class DirectAbstractRequest extends AbstractRequest
 
     public function sendData($data)
     {
-        $httpResponse = $this->httpClient->post($this->getEndpoint(), null, $data->asXML())->send();
+        $httpResponse = $this->httpClient->post($this->getEndpoint(), ['body' => $data->asXML()]);
 
-        return $this->response = new DirectResponse($this, $httpResponse->xml());
+        return $this->response = new DirectResponse($this, ResponseParser::xml($httpResponse));
     }
 
     public function getCustomerId()
